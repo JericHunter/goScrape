@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-
+	"log"
+	"strconv"
 	"github.com/gocolly/colly"
 )
 
@@ -13,14 +14,20 @@ func main() {
 	)
 
 	// On every a element which has href attribute call callback
-	c.OnHTML("table > tbody", func(e *colly.HTMLElement) {
+	c.OnHTML(".factsList li", func(e *colly.HTMLElement) {
 		// link := e.Attr("href")
-		
-		// Print link
-		fmt.Printf(e.Text)
-		// Visit link found on page
-		// Only those links are visited which are in AllowedDomains
-		// c.Visit(e.Request.AbsoluteURL(link))
+		factId, err := strconv.Atoi(e.Attr("id"))
+		if err != nil {
+			log.Println("Could not get id")
+		}
+		factDesc := element.Text
+
+		fact := Fact{
+			ID:          factId,
+			Description: factDesc,
+		}
+
+		allFacts = append(allFacts, fact)
 	})
 
 	// Before making a request print "Visiting ..."
