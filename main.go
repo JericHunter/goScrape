@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strconv"
@@ -40,4 +41,7 @@ func main() {
 
 	// Start scraping on https://hackerspaces.org
 	c.Visit("https://www.factretriever.com/spider-facts")
+}
+func writeJSON(data []Fact) {
+
 }
