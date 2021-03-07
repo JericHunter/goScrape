@@ -53,4 +53,4 @@ func writeJSON(data []Fact) {
 		return
 	}
 	_ = ioutil.WriteFile("spiderFacts.json", file, 0644)
-}
+} 
