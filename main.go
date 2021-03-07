@@ -2,16 +2,19 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"fmt"
 	"log"
 	"strconv"
 	"github.com/gocolly/colly"
 )
+// Fact comment to prevent error
 type Fact struct {
-	ID          int    `json:"id"`
+	ID int `json:"id"`
 	Description string `json:"description"`
 }
 func main() {
+	allFacts := make([]Fact, 0)
 	// Instantiate default collector
 	c:= colly.NewCollector(
 		colly.AllowedDomains("factretriever.com", "www.factretriever.com"),
@@ -41,7 +44,13 @@ func main() {
 
 	// Start scraping on https://hackerspaces.org
 	c.Visit("https://www.factretriever.com/spider-facts")
+	writeJSON(allFacts)
 }
 func writeJSON(data []Fact) {
-
+	file, err := json.MarshalIndent(data, "", " ")
+	if err != nil {
+		log.Println("Unable to create json file")
+		return
+	}
+	_ = ioutil.WriteFile("rhinofacts.json", file, 0644)
 }
