@@ -7,10 +7,9 @@ import (
 )
 
 func main() {
-    fmt.Println("Hi")
 	// Instantiate default collector
-	c := colly.NewCollector(
-		// colly.AllowedDomains(""),
+	c:= colly.NewCollector(
+		colly.AllowedDomains("factretriever.com", "www.factretriever.com"),
 	)
 
 	// On every a element which has href attribute call callback
@@ -30,6 +29,5 @@ func main() {
 	})
 
 	// Start scraping on https://hackerspaces.org
-	c.Visit("https://myanimelist.net/animelist/jeric616?status=7")
-    fmt.Println("Bye")
+	c.Visit("https://www.factretriever.com/spider-facts")
 }
