@@ -6,7 +6,10 @@ import (
 	"strconv"
 	"github.com/gocolly/colly"
 )
-
+type Fact struct {
+	ID          int    `json:"id"`
+	Description string `json:"description"`
+}
 func main() {
 	// Instantiate default collector
 	c:= colly.NewCollector(
@@ -16,14 +19,14 @@ func main() {
 	// On every a element which has href attribute call callback
 	c.OnHTML(".factsList li", func(e *colly.HTMLElement) {
 		// link := e.Attr("href")
-		factId, err := strconv.Atoi(e.Attr("id"))
+		factID, err := strconv.Atoi(e.Attr("id"))
 		if err != nil {
 			log.Println("Could not get id")
 		}
-		factDesc := element.Text
+		factDesc := e.Text
 
 		fact := Fact{
-			ID:          factId,
+			ID:          factID,
 			Description: factDesc,
 		}
 
