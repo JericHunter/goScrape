@@ -52,5 +52,5 @@ func writeJSON(data []Fact) {
 		log.Println("Unable to create json file")
 		return
 	}
-	_ = ioutil.WriteFile("rhinofacts.json", file, 0644)
+	_ = ioutil.WriteFile("spiderFacts.json", file, 0644)
 }
